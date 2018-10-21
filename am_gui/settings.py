@@ -17,11 +17,17 @@ class SettingsDialog(Frame):
         self.name = StringVar(self, value=self.prefs.get('name'))
         self.root_folder = StringVar(self, value=self.prefs.get('root_folder'))
 
-        # Draw the entry boxes
-        Entry(self, textvariable=self.name).grid(row=0, column=0, columnspan=2)
-        Entry(self, textvariable=self.root_folder).grid(row=1, column=0, columnspan=2)
+        # Draw the labels:
+        Label(self, text='Name:').grid(row=0, column=0, sticky=W)
+        Label(self, text='Root Folder:').grid(row=1, column=0, sticky=W)
 
-        # Draw the buttons
+        # Draw the entry boxes:
+        Entry(self, textvariable=self.name).grid(
+            row=0, column=1, columnspan=2, sticky=E)
+        Entry(self, textvariable=self.root_folder).grid(
+            row=1, column=1, columnspan=2, sticky=E)
+
+        # Draw the buttons:
         Button(self, text='Save', command=self.save).grid(row=2, column=0)
         Button(self, text='Cancel', command=parent.destroy).grid(row=2, column=1)
 

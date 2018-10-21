@@ -7,7 +7,7 @@ from am_gui.settings import SettingsDialog
 
 def show_settings():
     popup = Toplevel()
-    SettingsDialog(popup).grid(row=0, column=0)
+    SettingsDialog(popup).grid(row=0, column=0, sticky=E)
 
 root = Tk()
 
