@@ -19,7 +19,10 @@ l.pack()
 tree = Treeview()
 tree.pack()
 
-assets = os.listdir(prefs.get('root_folder'))
+try:
+    assets = os.listdir(prefs.get('root_folder'))
+except:
+    assets = ['check your prefs']
 for i in assets:
     tree.insert('', 'end', text=i)
 
