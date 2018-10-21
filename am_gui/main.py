@@ -1,6 +1,7 @@
 from am_utils.prefs import Prefs
 from am_utils.crawler import crawl
 import os
+from os import path as p
 
 from tkinter import *
 from tkinter.ttk import *
@@ -14,7 +15,9 @@ class AssetList(Frame):
         # Create the Elements:
         l = Label(self, text="Assets:")
         b = Button(self, text="Refresh", command=self.refresh_tree)
+
         self.tree = Treeview(self)
+        self.tree['columns'] = ('category', 'library')
 
         # Style and place the elements:
         l.grid(row=0, column=0, sticky=W)
@@ -33,7 +36,10 @@ class AssetList(Frame):
             assets = ['check your prefs']
         self.tree.delete(*self.tree.get_children())
         for i in assets:
-            self.tree.insert('', 'end', text=i)
+            head, name = p.split(i)
+            head, category = p.split(head)
+            head, library = p.split(head)
+            self.tree.insert('', 'end', text=name, values=(category, library))
 
 class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""
