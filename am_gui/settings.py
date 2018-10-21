@@ -1,7 +1,7 @@
 from am_utils.prefs import Prefs
 
 from tkinter import *
-from tkinter.ttk import *
+from tkinter import ttk
 from tkinter.messagebox import showinfo
 
 class SettingsDialog(Frame):
@@ -11,26 +11,18 @@ class SettingsDialog(Frame):
         self.p = parent
         self.prefs = Prefs()
 
-        self.name = Entry(parent)
-        self.name.pack()
-        self.name.insert(0, self.prefs.get('name'))
+        self.name = StringVar(self, value=self.prefs.get('name'))
+        self.root_folder = StringVar(self, value=self.prefs.get('root_folder'))
 
-        self.root_folder = Entry(parent)
-        self.root_folder.pack()
-        self.root_folder.insert(0, self.prefs.get('root_folder'))
+        Entry(self, textvariable=self.name).grid(row=0, column=0, columnspan=2)
+        Entry(self, textvariable=self.root_folder).grid(row=1, column=0, columnspan=2)
 
-        save_button = Button(self, text='Save', command=self.save)
-        save_button.pack()
-
-        cancel_button = Button(self, text='Cancel', command=parent.destroy)
-        cancel_button.pack()
+        Button(self, text='Save', command=self.save).grid(row=2, column=0)
+        Button(self, text='Cancel', command=parent.destroy).grid(row=2, column=1)
 
     def save(self):
         name = self.name.get()
         self.prefs.set('name', name)
-
-        root_folder = self.root_folder.get()
-        self.prefs.set('root_folder', root_folder)
 
         showinfo(title='popup', message='Settings saved!')
         self.p.destroy()
