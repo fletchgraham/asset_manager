@@ -52,11 +52,21 @@ class ActionsMenu(Frame):
 def show_settings():
     """Display a dialog for editing settings."""
     popup = Toplevel()
+    center_window(popup, 400, 400)
     SettingsDialog(popup).grid(row=0, column=0, sticky=E)
+
+def center_window(window, w, h):
+    sw = window.winfo_screenwidth()
+    sh = window.winfo_screenheight()
+    x = int((sw - w)/2)
+    y = int((sh - h)/2)
+    geom = '{}x{}+{}+{}'.format(w, h, x, y)
+    window.geometry(geom)
 
 # MAIN APP:
 
 root = Tk()
+center_window(root, 800, 600)
 
 paned_window = Panedwindow(root, orient=HORIZONTAL)
 paned_window.pack(fill=BOTH, expand=True)
