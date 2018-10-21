@@ -1,5 +1,6 @@
 from am_utils.prefs import Prefs
 from am_utils.crawler import crawl
+from am_utils.thumbnails import process_thumbs
 import os
 from os import path as p
 
@@ -49,10 +50,12 @@ class ActionsMenu(Frame):
         # Create the gui elements:
         p = Button(self, text="Preferences", command=show_settings)
         c = Button(self, text="Exit", command=sys.exit)
+        t = Button(self, text="Thumbnails", command=make_thumbs)
 
         # Style and place the elements:
         p.grid(row=0)
         c.grid(row=1)
+        t.grid(row=2)
         self.grid_columnconfigure(0, weight=1)
 
 def show_settings():
@@ -69,6 +72,11 @@ def center_window(window, w, h):
     geom = '{}x{}+{}+{}'.format(w, h, x, y)
     window.geometry(geom)
 
+def make_thumbs():
+    prefs = Prefs()
+    root_folder = prefs.get('root_folder')
+    assets = crawl(root_folder)
+    process_thumbs(assets, root_folder, hard=True)
 # MAIN APP:
 
 root = Tk()
