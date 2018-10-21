@@ -14,11 +14,11 @@ root = Tk()
 
 prefs = Prefs()
 
-l = Label(text="Hello {}".format(prefs.get('name')))
-l.pack()
+Label(text="Assets:").grid(row=0, column=0)
+Button(text="Refresh").grid(row=0, column=2)
 
 tree = Treeview()
-tree.pack()
+tree.grid(row=1, column=0, columnspan=4)
 
 try:
     assets = crawl(prefs.get('root_folder'))
@@ -27,10 +27,7 @@ except:
 for i in assets:
     tree.insert('', 'end', text=i)
 
-p = Button(text="Preferences", command=show_settings)
-p.pack()
-
-b = Button(text="Exit", command=sys.exit)
-b.pack()
+Button(text="Preferences", command=show_settings).grid(row=0, column=5)
+Button(text="Exit", command=sys.exit).grid(row=1, column=5)
 
 root.mainloop()
