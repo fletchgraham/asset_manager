@@ -1,6 +1,7 @@
 from am_utils.prefs import Prefs
 
 from tkinter import *
+from tkinter.ttk import *
 from tkinter.messagebox import showinfo
 
 class SettingsDialog(Frame):
@@ -30,7 +31,7 @@ class SettingsDialog(Frame):
 
         root_folder = self.root_folder.get()
         self.prefs.set('root_folder', root_folder)
-        
+
         showinfo(title='popup', message='Settings saved!')
         self.p.destroy()
 
