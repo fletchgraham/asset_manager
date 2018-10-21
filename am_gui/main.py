@@ -1,4 +1,5 @@
 from am_utils.prefs import Prefs
+from am_utils.crawler import crawl
 import os
 
 from tkinter import *
@@ -20,7 +21,7 @@ tree = Treeview()
 tree.pack()
 
 try:
-    assets = os.listdir(prefs.get('root_folder'))
+    assets = crawl(prefs.get('root_folder'))
 except:
     assets = ['check your prefs']
 for i in assets:
