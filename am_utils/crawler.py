@@ -2,12 +2,14 @@ import os
 from os import path as p
 
 def crawl(folder):
-
+    
+    assets = []
     for library in get_dirs(folder):
         categories = get_dirs(library)
 
         for category in categories:
-            assets = get_dirs(category)
+            for asset in get_dirs(category):
+                assets.append(asset)
 
     return assets
 
@@ -29,3 +31,7 @@ if __name__ == '__main__':
     print(home)
     subfolders = get_dirs(home)
     print(subfolders)
+
+    assets = crawl(input('root folder:\n>>>'))
+    for i in assets:
+        print(i)
