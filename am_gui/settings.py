@@ -2,7 +2,6 @@ from am_utils.prefs import Prefs
 
 from tkinter import *
 from tkinter import ttk
-from tkinter.messagebox import showinfo
 
 class SettingsDialog(Frame):
     """Gui element for getting settings from the user."""
@@ -35,7 +34,6 @@ class SettingsDialog(Frame):
         """Save the values in the text inputs to the prefs shelve."""
         self.prefs.set('name', self.name.get())
         self.prefs.set('root_folder', self.root_folder.get())
-        showinfo(title='popup', message='Settings saved!')
         self.p.destroy()
 
 if __name__ == '__main__':

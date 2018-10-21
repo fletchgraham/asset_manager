@@ -39,11 +39,18 @@ class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""
     def __init__(self, parent=None):
         Frame.__init__(self, parent)
-        Button(self, text="Preferences", command=show_settings).grid(row=0)
-        Button(self, text="Exit", command=sys.exit).grid(row=1)
 
+        # Create the gui elements:
+        p = Button(self, text="Preferences", command=show_settings)
+        c = Button(self, text="Exit", command=sys.exit)
+
+        # Style and place the elements:
+        p.grid(row=0)
+        c.grid(row=1)
         self.grid_columnconfigure(0, weight=1)
+
 def show_settings():
+    """Display a dialog for editing settings."""
     popup = Toplevel()
     SettingsDialog(popup).grid(row=0, column=0, sticky=E)
 
