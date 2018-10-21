@@ -14,6 +14,10 @@ class SettingsDialog(Frame):
         self.name.pack()
         self.name.insert(0, self.prefs.get('name'))
 
+        self.root_folder = Entry(parent)
+        self.root_folder.pack()
+        self.root_folder.insert(0, self.prefs.get('root_folder'))
+
         save_button = Button(self, text='Save', command=self.save)
         save_button.pack()
 
@@ -23,6 +27,10 @@ class SettingsDialog(Frame):
     def save(self):
         name = self.name.get()
         self.prefs.set('name', name)
+
+        root_folder = self.root_folder.get()
+        self.prefs.set('root_folder', root_folder)
+        
         showinfo(title='popup', message='Settings saved!')
         self.p.destroy()
 

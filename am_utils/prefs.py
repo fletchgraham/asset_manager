@@ -21,7 +21,7 @@ class Prefs:
         try:
             value = prefs[key]
         except:
-            value = None
+            value = 'NULL'
 
         prefs.close()
         return value

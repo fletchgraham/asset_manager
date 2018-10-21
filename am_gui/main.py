@@ -1,3 +1,5 @@
+from am_utils.prefs import Prefs
+
 from tkinter import *
 from am_gui.settings import SettingsDialog
 
@@ -7,7 +9,9 @@ def show_settings():
 
 root = Tk()
 
-l = Label(text="Hello Fletcher")
+prefs = Prefs()
+
+l = Label(text="Hello {}".format(prefs.get('name')))
 l.pack()
 
 p = Button(text="Preferences", command=show_settings)
