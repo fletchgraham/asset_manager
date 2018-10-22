@@ -31,6 +31,7 @@ class AssetList(Frame):
     def refresh_tree(self):
         """Clear the tree then re-crawl for assets."""
         prefs = Prefs()
+        new_thumbs()
         try:
             assets = crawl(prefs.get('root_folder'))
         except:
@@ -45,7 +46,7 @@ class ActionsMenu(Frame):
         # Create the gui elements:
         p = Button(self, text="Preferences", command=show_settings)
         c = Button(self, text="Exit", command=sys.exit)
-        t = Button(self, text="Thumbnails", command=make_thumbs)
+        t = Button(self, text="Thumbnails", command=selected_thumbs)
 
         # Style and place the elements:
         p.grid(row=0)
@@ -67,11 +68,17 @@ def center_window(window, w, h):
     geom = '{}x{}+{}+{}'.format(w, h, x, y)
     window.geometry(geom)
 
-def make_thumbs():
+def selected_thumbs():
     prefs = Prefs()
     root_folder = prefs.get('root_folder')
     assets = crawl(root_folder)
     process_thumbs(assets, root_folder, hard=True)
+
+def new_thumbs():
+    prefs = Prefs()
+    root_folder = prefs.get('root_folder')
+    assets = crawl(root_folder)
+    process_thumbs(assets, root_folder, hard=False)
 
 # MAIN APP:
 
