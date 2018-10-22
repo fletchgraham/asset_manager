@@ -22,8 +22,9 @@ def optimize_image(path_in, path_out, size=800):
     else:
         # Open the source image, size and resample, save it out.
         im = Image.open(path_in)
-        im.thumbnail((size,size))
-        im.save(path_out, "JPEG")
+        rgb_im = im.convert('RGB')
+        rgb_im.thumbnail((size,size))
+        rgb_im.save(path_out, "JPEG")
 
 def process_thumbs(asset_paths, root_folder, hard=False):
     for path in asset_paths:
