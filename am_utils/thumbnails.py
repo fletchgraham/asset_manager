@@ -15,7 +15,7 @@ def optimize_image(path_in, path_out, size=800):
 
     src = path_in
 
-    if not p.exists(src):
+    if not src:
         img = Image.new('RGB', (size, size), color = (105, 0, 255))
         img.save(path_out)
 
@@ -27,8 +27,18 @@ def optimize_image(path_in, path_out, size=800):
 
 def process_thumbs(asset_paths, root_folder, hard=False):
     for path in asset_paths:
+
+        # First choice of image to use:
         src = p.join(path, p.basename(path) + '.jpg')
-        dst = p.join(root_folder, '_thumbs', p.basename(path) + '.jpg')
+
+        # Failing that, it'll grab the first image it finds:
+        if not p.exists(src):
+            src = 0
+            for file in os.listdir(path):
+                if p.splitext(file)[1].lower() in ['.jpg', '.jpeg', '.png', '.tif']:
+                    src = p.join(path, file)
+
+        dst = p.join(root_folder, '.am', 'thumbs', p.basename(path) + '.jpg')
 
         if not p.exists(dst) or hard:
             optimize_image(src, dst)

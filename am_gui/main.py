@@ -77,6 +77,7 @@ def make_thumbs():
     root_folder = prefs.get('root_folder')
     assets = crawl(root_folder)
     process_thumbs(assets, root_folder, hard=True)
+
 # MAIN APP:
 
 root = Tk()
