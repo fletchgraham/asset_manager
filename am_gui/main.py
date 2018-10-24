@@ -94,4 +94,7 @@ menu = ActionsMenu(paned_window)
 paned_window.add(treeview, weight=4)
 paned_window.add(menu, weight=1)
 
+style = Style(root)
+style.configure('Treeview', rowheight=40)
+
 root.mainloop()
