@@ -48,5 +48,13 @@ class AssetTree(ttk.Treeview):
                 )
 
     def open_location(self):
+        prefs = Prefs()
+        r = prefs.get('root_folder')
+
         selected = self.selection()
-        showinfo("Window", selected)
+
+        for i in selected:
+            name = self.item(i, 'text')
+            values = self.item(i, 'values')
+            path = p.join(r, values[1], values[0], name)
+            os.startfile(path)
