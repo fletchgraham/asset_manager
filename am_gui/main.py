@@ -45,7 +45,7 @@ class ActionsMenu(Frame):
 
         # Create the gui elements:
         p = Button(self, text="Preferences", command=show_settings).pack()
-        t = Button(self, text="Thumbnails", command=selected_thumbs).pack()
+        t = Button(self, text="Thumbnails", command=tree.selected_thumbs).pack()
         o = Button(
             self,
             text="Open Location",
@@ -66,12 +66,6 @@ def center_window(window, w, h):
     y = int((sh - h)/2)
     geom = '{}x{}+{}+{}'.format(w, h, x, y)
     window.geometry(geom)
-
-def selected_thumbs():
-    prefs = Prefs()
-    root_folder = prefs.get('root_folder')
-    assets = crawl(root_folder)
-    process_thumbs(assets, root_folder, hard=True)
 
 def new_thumbs():
     prefs = Prefs()

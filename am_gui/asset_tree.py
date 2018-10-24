@@ -1,10 +1,10 @@
 """Custom tk treeview class that displys the list of assets."""
 
 from am_utils.prefs import Prefs
+from am_utils.thumbnails import process_thumbs
 
 from tkinter import *
 from tkinter import ttk
-from tkinter.messagebox import showinfo
 
 from PIL import Image, ImageTk
 
@@ -47,14 +47,28 @@ class AssetTree(ttk.Treeview):
                 values=(category, library)
                 )
 
-    def open_location(self):
+    def get_selected_paths(self):
         prefs = Prefs()
         r = prefs.get('root_folder')
 
         selected = self.selection()
+        paths = []
 
         for i in selected:
             name = self.item(i, 'text')
             values = self.item(i, 'values')
             path = p.join(r, values[1], values[0], name)
+            paths.append(path)
+
+        return paths
+
+    def open_location(self):
+        selected = self.get_selected_paths()
+        for path in selected:
             os.startfile(path)
+
+    def selected_thumbs(self):
+        prefs = Prefs()
+        r = prefs.get('root_folder')
+        paths = self.get_selected_paths()
+        process_thumbs(paths, r, hard=True)
