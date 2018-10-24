@@ -4,6 +4,7 @@ from am_utils.prefs import Prefs
 
 from tkinter import *
 from tkinter import ttk
+from tkinter.messagebox import showinfo
 
 from PIL import Image, ImageTk
 
@@ -45,3 +46,7 @@ class AssetTree(ttk.Treeview):
                 image=self.icons[-1],
                 values=(category, library)
                 )
+
+    def open_location(self):
+        selected = self.selection()
+        showinfo("Window", selected)

@@ -40,19 +40,18 @@ class AssetList(Frame):
 
 class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, tree=None):
         Frame.__init__(self, parent)
 
         # Create the gui elements:
-        p = Button(self, text="Preferences", command=show_settings)
-        c = Button(self, text="Exit", command=sys.exit)
-        t = Button(self, text="Thumbnails", command=selected_thumbs)
-
-        # Style and place the elements:
-        p.grid(row=0)
-        c.grid(row=1)
-        t.grid(row=2)
-        self.grid_columnconfigure(0, weight=1)
+        p = Button(self, text="Preferences", command=show_settings).pack()
+        t = Button(self, text="Thumbnails", command=selected_thumbs).pack()
+        o = Button(
+            self,
+            text="Open Location",
+            command=tree.open_location
+            ).pack()
+        c = Button(self, text="Exit", command=sys.exit).pack()
 
 def show_settings():
     """Display a dialog for editing settings."""
@@ -89,7 +88,7 @@ paned_window = Panedwindow(root, orient=HORIZONTAL)
 paned_window.pack(fill=BOTH, expand=True)
 
 treeview = AssetList(paned_window)
-menu = ActionsMenu(paned_window)
+menu = ActionsMenu(paned_window, treeview.tree)
 
 paned_window.add(treeview, weight=4)
 paned_window.add(menu, weight=1)
