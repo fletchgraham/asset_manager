@@ -32,7 +32,7 @@ class AssetTree(ttk.Treeview):
             # Make icons:
             thumb_path = p.join(r, '.am', 'thumbs', name + '.jpg')
             image = Image.open(thumb_path)
-            image.thumbnail((30,30))
+            image.thumbnail((120,120))
             icon = ImageTk.PhotoImage(image)
 
             # Icons must be added to a list lest they get garbage collected:
