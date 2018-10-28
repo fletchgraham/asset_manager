@@ -16,13 +16,13 @@ class AssetList(Frame):
         Frame.__init__(self, parent)
 
         # Create the Elements:
-        l = Label(self, text="Assets:")
+        self.filters = Entry(self, text="Filters")
         b = Button(self, text="Refresh", command=self.refresh_tree)
 
         self.tree = AssetTree(self)
 
         # Style and place the elements:
-        l.grid(row=0, column=0, sticky=W)
+        self.filters.grid(row=0, column=0, sticky=W+E)
         b.grid(row=0, column=1, sticky=E)
         self.tree.grid(row=1, column=0, columnspan=2, sticky=N+E+S+W)
         self.grid_columnconfigure(0, weight=1)
@@ -38,7 +38,7 @@ class AssetList(Frame):
             assets = ['check your prefs']
 
         model = Model(assets)
-        self.tree.refresh(model, filters=[])
+        self.tree.refresh(model, filters=[self.filters.get()])
 
 class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""
