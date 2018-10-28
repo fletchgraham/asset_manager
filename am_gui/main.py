@@ -1,4 +1,5 @@
 from am_utils.prefs import Prefs
+from am_utils.data_model import Model
 from am_utils.crawler import crawl
 from am_utils.thumbnails import process_thumbs
 from am_gui.asset_tree import AssetTree
@@ -31,12 +32,13 @@ class AssetList(Frame):
     def refresh_tree(self):
         """Clear the tree then re-crawl for assets."""
         prefs = Prefs()
-        new_thumbs()
         try:
             assets = crawl(prefs.get('root_folder'))
         except:
             assets = ['check your prefs']
-        self.tree.refresh(assets)
+
+        model = Model(assets)
+        self.tree.refresh(model)
 
 class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""
@@ -66,12 +68,6 @@ def center_window(window, w, h):
     y = int((sh - h)/2)
     geom = '{}x{}+{}+{}'.format(w, h, x, y)
     window.geometry(geom)
-
-def new_thumbs():
-    prefs = Prefs()
-    root_folder = prefs.get('root_folder')
-    assets = crawl(root_folder)
-    process_thumbs(assets, root_folder, hard=False)
 
 # MAIN APP:
 
