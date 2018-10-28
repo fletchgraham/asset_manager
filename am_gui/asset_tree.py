@@ -9,6 +9,12 @@ from tkinter import ttk
 import os
 from os import path as p
 
+def filter(dictionaries, filters=[]):
+    if not filters:
+        return dictionaries
+
+    filtered = []
+
 class AssetTree(ttk.Treeview):
     def __init__(self, parent=None, data_model=None):
         """for now, data_model is a list of paths."""
