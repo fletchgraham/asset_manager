@@ -38,7 +38,7 @@ class AssetList(Frame):
             assets = ['check your prefs']
 
         model = Model(assets)
-        self.tree.refresh(model)
+        self.tree.refresh(model, filters=[])
 
 class ActionsMenu(Frame):
     """Gui element for getting settings from the user."""

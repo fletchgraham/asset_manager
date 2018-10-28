@@ -18,28 +18,39 @@ class AssetTree(ttk.Treeview):
         self.refresh(data_model)
         self.icons = []
 
-    def refresh(self, data_model):
+    def refresh(self, data_model, filters=[]):
         self.delete(*self.get_children())
 
         if not data_model:
-            pass
+            return
 
+        remaining = []
+
+        if not filters:
+            remaining = data_model.assets
         else:
-            for i in data_model.assets:
-                name = i.get('name')
-                category = i.get('category')
-                library = i.get('library')
-                path = i.get('path')
-                self.icons.append(get_thumbnail(path, 120))
+            for asset in data_model.assets:
+                for filter in filters:
+                    for key in asset:
+                        if filter.lower() in asset.get(key).lower():
+                            if not asset in remaining:
+                                remaining.append(asset)
 
-                self.insert(
-                    '',
-                    'end',
-                    text=name,
-                    image=self.icons[-1],
-                    values=(category, library)
-                    )
-                self.master.update()
+        for i in remaining:
+            name = i.get('name')
+            category = i.get('category')
+            library = i.get('library')
+            path = i.get('path')
+            self.icons.append(get_thumbnail(path, 120))
+
+            self.insert(
+                '',
+                'end',
+                text=name,
+                image=self.icons[-1],
+                values=(category, library)
+                )
+            self.master.update()
 
     def get_selected_paths(self):
         prefs = Prefs()
