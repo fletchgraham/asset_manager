@@ -40,6 +40,7 @@ class AssetTree(ttk.Treeview):
                     image=self.icons[-1],
                     values=(category, library)
                     )
+                self.master.update()
 
     def get_selected_paths(self):
         prefs = Prefs()
