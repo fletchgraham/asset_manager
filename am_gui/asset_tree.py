@@ -1,12 +1,10 @@
 """Custom tk treeview class that displys the list of assets."""
 
 from am_utils.prefs import Prefs
-from am_utils.thumbnails import process_thumbs
+from am_utils.thumbnails import get_thumbnail
 
 from tkinter import *
 from tkinter import ttk
-
-from PIL import Image, ImageTk
 
 import os
 from os import path as p
@@ -31,7 +29,8 @@ class AssetTree(ttk.Treeview):
                 name = i.get('name')
                 category = i.get('category')
                 library = i.get('library')
-                self.icons.append(i.get('thumb'))
+                path = i.get('path')
+                self.icons.append(get_thumbnail(path, 120))
 
                 self.insert(
                     '',
