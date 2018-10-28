@@ -46,13 +46,14 @@ def get_thumbnail(path, size):
     for i in imgs:
         if p.splitext(i)[0] == p.basename(path):
             src = i
-            break
+            brea
         else:
             src = imgs[-1]
 
     # Create a placeholder thumb if a source couldn't be found:
     if not src:
-        thumb = Image.new('RGB', (size, size), color = (105, 0, 255))
+        image = Image.new('RGB', (size, size), color = (105, 0, 255))
+        thumb = ImageTk.PhotoImage(image)
 
     # If a source was found, process it and assign it to the thumb variable:
     else:

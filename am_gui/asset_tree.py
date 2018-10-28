@@ -21,8 +21,6 @@ class AssetTree(ttk.Treeview):
         self.icons = []
 
     def refresh(self, data_model):
-        prefs = Prefs()
-        r = prefs.get('root_folder')
         self.delete(*self.get_children())
 
         if not data_model:
