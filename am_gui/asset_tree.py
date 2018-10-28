@@ -21,7 +21,7 @@ def filter(dictionaries, filters=[]):
         for f in filters:
             test = 0
             for k in d:
-                if f in d.get(k):
+                if f.lower() in d.get(k).lower():
                     test = 1
             tests.append(test)
 

@@ -41,7 +41,7 @@ class AssetList(Frame):
 
         filters = []
         for f in self.filters.get().split(','):
-            filters.append(f.strip().lower())
+            filters.append(f.strip())
 
         self.tree.refresh(model, filters=filters)
 
