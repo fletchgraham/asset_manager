@@ -46,7 +46,7 @@ def get_thumbnail(path, size):
     for i in imgs:
         if p.splitext(i)[0] == p.basename(path):
             src = i
-            brea
+            break
         else:
             src = imgs[-1]
 
