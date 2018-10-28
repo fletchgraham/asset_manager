@@ -10,10 +10,25 @@ import os
 from os import path as p
 
 def filter(dictionaries, filters=[]):
+    """filter a list of dictionaries. return a filtered list."""
     if not filters:
         return dictionaries
 
     filtered = []
+
+    for d in dictionaries:
+        tests = []
+        for f in filters:
+            test = 0
+            for k in d:
+                if f in d.get(k):
+                    test = 1
+            tests.append(test)
+
+        if not 0 in tests:
+            filtered.append(d)
+
+    return filtered
 
 class AssetTree(ttk.Treeview):
     def __init__(self, parent=None, data_model=None):
@@ -30,19 +45,9 @@ class AssetTree(ttk.Treeview):
         if not data_model:
             return
 
-        remaining = []
+        filtered = filter(data_model.assets, filters=filters)
 
-        if not filters:
-            remaining = data_model.assets
-        else:
-            for asset in data_model.assets:
-                for filter in filters:
-                    for key in asset:
-                        if filter.lower() in asset.get(key).lower():
-                            if not asset in remaining:
-                                remaining.append(asset)
-
-        for i in remaining:
+        for i in filtered:
             name = i.get('name')
             category = i.get('category')
             library = i.get('library')

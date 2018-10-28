@@ -38,10 +38,15 @@ class AssetList(Frame):
             assets = ['check your prefs']
 
         model = Model(assets)
-        self.tree.refresh(model, filters=[self.filters.get()])
+
+        filters = []
+        for f in self.filters.get().split(','):
+            filters.append(f.strip().lower())
+
+        self.tree.refresh(model, filters=filters)
 
 class ActionsMenu(Frame):
-    """Gui element for getting settings from the user."""
+    """Gui element for doing things."""
     def __init__(self, parent=None, tree=None):
         Frame.__init__(self, parent)
 
