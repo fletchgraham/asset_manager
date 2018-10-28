@@ -47,7 +47,6 @@ class ActionsMenu(Frame):
 
         # Create the gui elements:
         p = Button(self, text="Preferences", command=show_settings).pack()
-        t = Button(self, text="Thumbnails", command=tree.selected_thumbs).pack()
         o = Button(
             self,
             text="Open Location",

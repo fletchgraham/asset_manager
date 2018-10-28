@@ -61,9 +61,3 @@ class AssetTree(ttk.Treeview):
         selected = self.get_selected_paths()
         for path in selected:
             os.startfile(path)
-
-    def selected_thumbs(self):
-        prefs = Prefs()
-        r = prefs.get('root_folder')
-        paths = self.get_selected_paths()
-        process_thumbs(paths, r, hard=True)
