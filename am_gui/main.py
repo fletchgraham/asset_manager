@@ -15,11 +15,11 @@ class MainApp(Frame):
 
         # Frame out the main areas of the gui:
         self.toolbar = Frame(self)
-        self.toolbar.pack()
+        self.toolbar.pack(fill=X)
         self.tree = AssetTree(self)
-        self.tree.pack()
+        self.tree.pack(fill=X)
         self.infobar = Frame(self)
-        self.infobar.pack()
+        self.infobar.pack(fill=X)
 
         # Add stuff to the toolbar:
         self.search_bar = Entry(self.toolbar)
@@ -82,7 +82,7 @@ root = Tk()
 center_window(root, 800, 600)
 
 main_app = MainApp(root)
-main_app.pack()
+main_app.pack(fill=X)
 root.bind('<Return>', return_refresh)
 
 style = Style(root)
