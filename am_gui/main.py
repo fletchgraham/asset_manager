@@ -21,7 +21,6 @@ class AssetList(Frame):
         b = Button(self, text="Refresh", command=self.refresh_tree)
 
         self.tree = AssetTree(self)
-        self.refresh_tree()
 
         # Style and place the elements:
         self.filters.grid(row=0, column=0, sticky=W+E)
