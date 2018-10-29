@@ -13,6 +13,7 @@ class MainApp(Frame):
     def __init__(self, parent=None):
         Frame.__init__(self, parent)
 
+        self.asset_count = StringVar()
         pad = 8
 
         # Frame out the main areas of the gui:
@@ -45,7 +46,7 @@ class MainApp(Frame):
         settings_btn.pack(side=LEFT)
 
         # Add stuff to infobar:
-        info_label = Label(self.infobar, text="testing, testing...")
+        info_label = Label(self.infobar, textvariable=self.asset_count)
         info_label.pack(side=LEFT, fill=X)
 
     def refresh_tree(self):
@@ -63,6 +64,7 @@ class MainApp(Frame):
             filters.append(f.strip())
 
         self.tree.refresh(model, filters=filters)
+        self.asset_count.set(len(self.tree.get_children('')))
 
 # Some useful functions:
 
