@@ -15,11 +15,14 @@ class MainApp(Frame):
 
         # Frame out the main areas of the gui:
         self.toolbar = Frame(self)
-        self.toolbar.pack(fill=X)
+        self.toolbar.grid(row=0, sticky=N+E+S+W)
         self.tree = AssetTree(self)
-        self.tree.pack(fill=X)
+        self.tree.grid(row=1, sticky=N+E+S+W)
         self.infobar = Frame(self)
-        self.infobar.pack(fill=X)
+        self.infobar.grid(row=2, sticky=E+S+W)
+
+        self.grid_rowconfigure(1, weight=1)
+        self.grid_columnconfigure(0, weight=1)
 
         # Add stuff to the toolbar:
         self.search_bar = Entry(self.toolbar)
@@ -39,7 +42,7 @@ class MainApp(Frame):
         settings_btn.pack(side=LEFT)
 
         info_label = Label(self.infobar, text="testing, testing...")
-        info_label.pack()
+        info_label.pack(side=LEFT, fill=X)
 
     def refresh_tree(self):
         """Clear the tree then re-crawl for assets."""
@@ -82,7 +85,7 @@ root = Tk()
 center_window(root, 800, 600)
 
 main_app = MainApp(root)
-main_app.pack(fill=X)
+main_app.pack(fill=BOTH, expand=True)
 root.bind('<Return>', return_refresh)
 
 style = Style(root)
