@@ -19,7 +19,7 @@ class MainApp(Frame):
         self.toolbar = Frame(self)
         self.toolbar.grid(row=0, sticky=N+E+S+W, padx=pad, pady=pad)
         self.tree = AssetTree(self)
-        self.tree.grid(row=1, sticky=N+E+S+W, padx=pad, pady=pad/2)
+        self.tree.grid(row=1, sticky=N+E+S+W, padx=pad)
         self.infobar = Frame(self)
         self.infobar.grid(row=2, sticky=N+E+S+W, padx=pad, pady=pad)
 
@@ -86,7 +86,7 @@ def return_refresh(event):
 # MAIN APP:
 
 root = Tk()
-center_window(root, 800, 600)
+center_window(root, 1440, 960)
 
 main_app = MainApp(root)
 main_app.pack(fill=BOTH, expand=True)
