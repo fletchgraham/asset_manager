@@ -1,34 +1,45 @@
+from tkinter import *
+from tkinter.ttk import *
+
 from am_utils.prefs import Prefs
 from am_utils.data_model import Model
 from am_utils.crawler import crawl
-from am_utils.thumbnails import process_thumbs
-from am_gui.asset_tree import AssetTree
-import os
-from os import path as p
 
-from tkinter import *
-from tkinter.ttk import *
+from am_gui.asset_tree import AssetTree
 from am_gui.settings import SettingsDialog
 
-class AssetList(Frame):
-    """Gui element for getting settings from the user."""
+class MainApp(Frame):
+    """The main window for the application"""
     def __init__(self, parent=None):
         Frame.__init__(self, parent)
 
-        # Create the Elements:
-        self.filters = Entry(self)
-        self.filters.insert(0, "Search")
-        b = Button(self, text="Refresh", command=self.refresh_tree)
-
+        # Frame out the main areas of the gui:
+        self.toolbar = Frame(self)
+        self.toolbar.pack()
         self.tree = AssetTree(self)
+        self.tree.pack()
+        self.infobar = Frame(self)
+        self.infobar.pack()
 
-        # Style and place the elements:
-        self.filters.grid(row=0, column=0, sticky=W+E)
-        b.grid(row=0, column=1, sticky=E)
-        self.tree.grid(row=1, column=0, columnspan=2, sticky=N+E+S+W)
-        self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=1)
-        self.grid_rowconfigure(1, weight=1)
+        # Add stuff to the toolbar:
+        self.search_bar = Entry(self.toolbar)
+        self.search_bar.pack(side=LEFT)
+        self.search_bar.insert(0, "Search")
+
+        refresh_btn = Button(self.toolbar, text="Refresh",
+            command=self.refresh_tree)
+        refresh_btn.pack(side=LEFT)
+
+        open_btn = Button(self.toolbar, text="Open",
+            command=self.tree.open_location)
+        open_btn.pack(side=LEFT)
+
+        settings_btn = Button(self.toolbar, text="Preferences",
+            command=show_settings)
+        settings_btn.pack(side=LEFT)
+
+        info_label = Label(self.infobar, text="testing, testing...")
+        info_label.pack()
 
     def refresh_tree(self):
         """Clear the tree then re-crawl for assets."""
@@ -41,25 +52,12 @@ class AssetList(Frame):
         model = Model(assets)
 
         filters = []
-
-        for f in self.filters.get().split(','):
+        for f in self.search_bar.get().split(','):
             filters.append(f.strip())
 
         self.tree.refresh(model, filters=filters)
 
-class ActionsMenu(Frame):
-    """Gui element for doing things."""
-    def __init__(self, parent=None, tree=None):
-        Frame.__init__(self, parent)
-
-        # Create the gui elements:
-        p = Button(self, text="Preferences", command=show_settings).pack()
-        o = Button(
-            self,
-            text="Open Location",
-            command=tree.open_location
-            ).pack()
-        c = Button(self, text="Exit", command=sys.exit).pack()
+# Some useful functions:
 
 def show_settings():
     """Display a dialog for editing settings."""
@@ -76,22 +74,16 @@ def center_window(window, w, h):
     window.geometry(geom)
 
 def return_refresh(event):
-    treeview.refresh_tree()
+    main_app.refresh_tree()
 
 # MAIN APP:
 
 root = Tk()
 center_window(root, 800, 600)
 
-paned_window = Panedwindow(root, orient=HORIZONTAL)
-paned_window.pack(fill=BOTH, expand=True)
-
-treeview = AssetList(paned_window)
+main_app = MainApp(root)
+main_app.pack()
 root.bind('<Return>', return_refresh)
-menu = ActionsMenu(paned_window, treeview.tree)
-
-paned_window.add(treeview, weight=4)
-paned_window.add(menu, weight=1)
 
 style = Style(root)
 style.configure('Treeview', rowheight=128)
