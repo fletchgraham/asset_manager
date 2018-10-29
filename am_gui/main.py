@@ -13,7 +13,7 @@ class MainApp(Frame):
     def __init__(self, parent=None):
         Frame.__init__(self, parent)
 
-        self.asset_count = StringVar()
+        self.info_text = StringVar()
         pad = 8
 
         # Frame out the main areas of the gui:
@@ -46,11 +46,14 @@ class MainApp(Frame):
         settings_btn.pack(side=LEFT)
 
         # Add stuff to infobar:
-        info_label = Label(self.infobar, textvariable=self.asset_count)
+        info_label = Label(self.infobar, textvariable=self.info_text)
         info_label.pack(side=LEFT, fill=X)
 
     def refresh_tree(self):
         """Clear the tree then re-crawl for assets."""
+        
+        self.info_text.set('Crawling asset folder...')
+
         prefs = Prefs()
         try:
             assets = crawl(prefs.get('root_folder'))
@@ -64,7 +67,10 @@ class MainApp(Frame):
             filters.append(f.strip())
 
         self.tree.refresh(model, filters=filters)
-        self.asset_count.set(len(self.tree.get_children('')))
+
+        # Update the infobar text.
+        message = 'Found {} assets.'.format(len(self.tree.get_children('')))
+        self.info_text.set(message)
 
 # Some useful functions:
 
