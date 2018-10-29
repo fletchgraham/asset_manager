@@ -13,14 +13,17 @@ class MainApp(Frame):
     def __init__(self, parent=None):
         Frame.__init__(self, parent)
 
+        pad = 8
+
         # Frame out the main areas of the gui:
         self.toolbar = Frame(self)
-        self.toolbar.grid(row=0, sticky=N+E+S+W)
+        self.toolbar.grid(row=0, sticky=N+E+S+W, padx=pad, pady=pad)
         self.tree = AssetTree(self)
-        self.tree.grid(row=1, sticky=N+E+S+W)
+        self.tree.grid(row=1, sticky=N+E+S+W, padx=pad, pady=pad/2)
         self.infobar = Frame(self)
-        self.infobar.grid(row=2, sticky=E+S+W)
+        self.infobar.grid(row=2, sticky=N+E+S+W, padx=pad, pady=pad)
 
+        # Add weight to rows and columns so they stretch.
         self.grid_rowconfigure(1, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
@@ -41,6 +44,7 @@ class MainApp(Frame):
             command=show_settings)
         settings_btn.pack(side=LEFT)
 
+        # Add stuff to infobar:
         info_label = Label(self.infobar, text="testing, testing...")
         info_label.pack(side=LEFT, fill=X)
 
@@ -86,6 +90,7 @@ center_window(root, 800, 600)
 
 main_app = MainApp(root)
 main_app.pack(fill=BOTH, expand=True)
+
 root.bind('<Return>', return_refresh)
 
 style = Style(root)
