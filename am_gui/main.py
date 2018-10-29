@@ -16,7 +16,8 @@ class AssetList(Frame):
         Frame.__init__(self, parent)
 
         # Create the Elements:
-        self.filters = Entry(self, text="Filters")
+        self.filters = Entry(self)
+        self.filters.insert(0, "Search")
         b = Button(self, text="Refresh", command=self.refresh_tree)
 
         self.tree = AssetTree(self)
@@ -41,6 +42,7 @@ class AssetList(Frame):
         model = Model(assets)
 
         filters = []
+
         for f in self.filters.get().split(','):
             filters.append(f.strip())
 
@@ -74,6 +76,9 @@ def center_window(window, w, h):
     geom = '{}x{}+{}+{}'.format(w, h, x, y)
     window.geometry(geom)
 
+def return_refresh(event):
+    treeview.refresh_tree()
+
 # MAIN APP:
 
 root = Tk()
@@ -83,6 +88,7 @@ paned_window = Panedwindow(root, orient=HORIZONTAL)
 paned_window.pack(fill=BOTH, expand=True)
 
 treeview = AssetList(paned_window)
+root.bind('<Return>', return_refresh)
 menu = ActionsMenu(paned_window, treeview.tree)
 
 paned_window.add(treeview, weight=4)

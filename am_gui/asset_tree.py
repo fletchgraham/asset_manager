@@ -14,6 +14,9 @@ def filter(dictionaries, filters=[]):
     if not filters:
         return dictionaries
 
+    if filters == ['Search']:
+        return dictionaries
+
     filtered = []
 
     for d in dictionaries:
