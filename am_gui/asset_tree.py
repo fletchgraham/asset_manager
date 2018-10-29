@@ -39,6 +39,15 @@ class AssetTree(ttk.Treeview):
         ttk.Treeview.__init__(self, parent)
 
         self['columns'] = ('category', 'library')
+
+        self.heading('#0', text='Name')
+        self.heading('category', text='Category')
+        self.heading('library', text='Library')
+
+        self.column("#0", minwidth=128, width=400)
+        self.column("category", minwidth=128, width=128, stretch=False)
+        self.column("library", minwidth=128, width=128, stretch=False)
+
         self.refresh(data_model)
         self.icons = []
 
